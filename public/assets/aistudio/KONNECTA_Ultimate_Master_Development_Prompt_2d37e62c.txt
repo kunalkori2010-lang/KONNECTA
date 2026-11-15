@@ -1,0 +1,840 @@
+KONNECTA — ULTIMATE MASTER DEVELOPMENT PROMPT
+
+Build a Premium, Secure, Next-Generation Social Messaging & Collaboration Platform
+
+ROLE AND RESPONSIBILITY
+
+Act as an expert team consisting of:
+
+-   Senior full-stack software architect.
+-   Professional UI/UX designer.
+-   Cybersecurity engineer.
+-   Database architect.
+-   Real-time communication engineer.
+-   Social media product designer.
+-   Performance and scalability engineer.
+-   Quality assurance engineer.
+
+Your responsibility is to build KONNECTA, a fully functional, modern,
+privacy-focused social communication platform.
+
+Do not create a simple WhatsApp clone, a static dashboard or a
+frontend-only demonstration.
+
+Build a complete application with real authentication, database
+operations, real-time messaging, private storage, social features,
+security controls and production-ready architecture.
+
+Every feature must have actual functionality. Never use fake
+interactions, hardcoded messages presented as real conversations,
+decorative buttons or simulated backend responses.
+
+If a feature requires an external service, clearly identify the
+dependency and implement its integration properly.
+
+1. PRODUCT IDENTITY
+
+Product name: KONNECTA
+
+Tagline: Connect. Share. Create. Grow.
+
+Vision:
+
+KONNECTA is a modern social communication ecosystem that combines
+private messaging, social networking, student collaboration, community
+building and secure document sharing.
+
+The application should serve:
+
+-   Friends and private social circles.
+-   College students.
+-   Study groups.
+-   Project teams.
+-   Classrooms.
+-   Interest-based communities.
+-   Educational organizations.
+
+Create a distinctive product identity.
+
+The application must be attractive enough to encourage users to explore
+it, invite friends and build communities.
+
+Do not use manipulative engagement tactics or artificial popularity.
+
+Keep branding configurable so the product name, logo, colours and domain
+can be changed without rewriting the application.
+
+2. COMPLETE UI/UX DESIGN SYSTEM
+
+THIS IS ONE OF THE HIGHEST PRIORITIES.
+
+Design a visually impressive, premium and original interface.
+
+Design inspiration: - WhatsApp for simplicity. - Discord for
+communities. - Telegram for messaging and file sharing. - Instagram for
+stories and social experiences. - Notion for organization. - Modern
+premium SaaS platforms for dashboard design.
+
+Do not copy their exact designs, logos or branding.
+
+VISUAL DIRECTION:
+
+-   Premium modern interface.
+-   Sophisticated dark and light themes.
+-   Deep navy and charcoal surfaces.
+-   Violet and electric-blue accents.
+-   Subtle gradients.
+-   Beautiful typography.
+-   Carefully designed icons.
+-   Rounded cards.
+-   Elegant shadows.
+-   Subtle glassmorphism.
+-   Smooth animations.
+-   Interactive hover states.
+-   Clean visual hierarchy.
+-   Consistent spacing.
+-   Attractive empty states.
+
+Avoid excessive neon, excessive blur, cluttered dashboards and childish
+design.
+
+THEME SYSTEM:
+
+Implement: - Dark theme. - Light theme. - System theme. - Custom accent
+colours. - Custom chat wallpapers. - Adjustable font sizes. -
+Reduced-motion option.
+
+RESPONSIVE DESIGN:
+
+Support: - Desktop. - Laptop. - Tablet. - Mobile browsers.
+
+Make the mobile interface feel like a dedicated application rather than
+a compressed desktop website.
+
+NAVIGATION:
+
+Create a modern navigation structure containing:
+
+1.  Home.
+2.  Messages.
+3.  Friends.
+4.  Stories.
+5.  Communities.
+6.  Study Zone.
+7.  Study Rooms.
+8.  Shared Files.
+9.  Events.
+10. Notifications.
+11. Personal Vault.
+12. Profile.
+13. Settings.
+
+Use responsive navigation, mobile bottom navigation where appropriate,
+contextual menus and keyboard shortcuts.
+
+UI QUALITY REQUIREMENTS:
+
+Every page must have: - Loading states. - Error states. - Empty
+states. - Success feedback. - Confirmation dialogs for destructive
+actions. - Proper validation. - Responsive layouts.
+
+Implement accessibility: - Keyboard navigation. - Screen-reader
+labels. - Semantic HTML. - Accessible contrast. - Visible focus
+indicators. - Reduced-motion support. - Accessible form validation.
+
+3. AUTHENTICATION AND ACCOUNT MANAGEMENT
+
+Implement real authentication.
+
+Features: - Email registration. - Login. - Email verification. -
+Password recovery. - Optional OAuth. - Optional MFA. - Secure session
+handling. - Logout from individual devices. - Logout from all devices. -
+Account deletion. - Account recovery.
+
+ONBOARDING:
+
+Allow users to: - Choose a unique username. - Upload an avatar. - Add a
+biography. - Select interests. - Add college information optionally. -
+Find friends. - Join communities. - Create their first group.
+
+Include an attractive multi-step onboarding experience.
+
+Do not expose email addresses, phone numbers, authentication credentials
+or private profile details publicly.
+
+Add age-appropriate account safety, privacy-by-default settings and
+appropriate restrictions on public discovery.
+
+4. REAL-TIME MESSAGING SYSTEM
+
+Build a complete messaging engine.
+
+PRIVATE MESSAGING:
+
+-   One-to-one conversations.
+-   Real-time message delivery.
+-   Text messages.
+-   Emoji.
+-   GIFs from appropriate providers.
+-   Image attachments.
+-   Video attachments.
+-   Documents.
+-   Voice messages.
+-   Reply to messages.
+-   Edit messages.
+-   Delete messages.
+-   Forward messages.
+-   Reactions.
+-   Pin messages.
+-   Message bookmarks.
+-   Typing indicators.
+-   Read receipts.
+-   Delivery indicators.
+-   Online/offline presence.
+-   Message search.
+-   Disappearing messages.
+-   Conversation mute.
+-   Archive conversations.
+-   Custom chat backgrounds.
+
+GROUP MESSAGING:
+
+-   Create groups.
+-   Add and remove members.
+-   Group name and description.
+-   Group icon.
+-   Administrators.
+-   Moderators.
+-   Custom permissions.
+-   Member invitations.
+-   Invitation expiration.
+-   Group announcements.
+-   Pinned messages.
+-   Group polls.
+-   Group media library.
+-   Group file library.
+-   Group event sharing.
+-   Member activity controls.
+
+MESSAGE RELIABILITY:
+
+Implement: - Message identifiers. - Server-generated timestamps. -
+Idempotent message submission. - Delivery acknowledgements. - Retry
+handling. - Duplicate prevention. - Pagination. - Reconnection. -
+Offline message queue. - Conflict handling. - Reliable synchronization
+across authorized devices.
+
+Never display a message as delivered unless the server confirms the
+appropriate delivery state.
+
+5. VOICE AND VIDEO COMMUNICATION
+
+Add a dedicated calling system.
+
+Features: - One-to-one voice calls. - One-to-one video calls. - Group
+voice calls. - Group video rooms. - Mute/unmute. - Camera on/off. -
+Speaker selection where supported. - Call notifications. - Incoming call
+interface. - Missed calls. - Call history. - Leave call. - Connection
+status. - Network quality indicators.
+
+Use WebRTC with suitable STUN/TURN infrastructure.
+
+Use an appropriate signaling mechanism.
+
+Handle permission denial, interrupted calls, reconnecting and poor
+network conditions.
+
+Do not pretend calls are functional until tested between separate
+devices and networks.
+
+6. STUDY ZONE
+
+Make this one of KONNECTA’s signature features.
+
+DOCUMENT MANAGEMENT:
+
+Support: - PDF. - DOCX. - PPTX. - Images. - Scanned notes. - Assignment
+files. - Question papers. - Study guides.
+
+ORGANIZATION:
+
+-   Subject-wise folders.
+-   Semester-wise folders.
+-   Course-wise resources.
+-   Personal notes.
+-   Shared group folders.
+-   Tags.
+-   Descriptions.
+-   Bookmarks.
+-   Recently uploaded documents.
+-   Recently viewed documents.
+-   Search and filters.
+
+COLLABORATION:
+
+-   Collaborative notes.
+-   Document comments.
+-   Suggested corrections.
+-   Shared editing.
+-   Version history.
+-   Permission management.
+-   Download controls.
+
+Provide document previews, upload progress, file-size validation and
+error recovery.
+
+Never expose private files through public storage URLs.
+
+7. SOCIAL NETWORKING FEATURES
+
+Create a modern social ecosystem.
+
+STORIES:
+
+-   Image stories.
+-   Short video stories.
+-   Text stories.
+-   Captions.
+-   Reactions.
+-   Story replies.
+-   Story viewers.
+-   Privacy settings.
+-   Close-friends sharing.
+-   Automatic expiration after 24 hours.
+
+SOCIAL FEED:
+
+-   Text posts.
+-   Image posts.
+-   Video posts.
+-   Comments.
+-   Reactions.
+-   Save posts.
+-   Share posts.
+-   Edit posts.
+-   Delete posts.
+-   Report posts.
+
+USER PROFILES:
+
+-   Profile image.
+-   Cover image.
+-   Username.
+-   Bio.
+-   Interests.
+-   Optional activity information.
+-   Friends.
+-   Communities.
+-   Shared posts.
+-   Privacy controls.
+
+FRIEND SYSTEM:
+
+-   Friend requests.
+-   Accept/reject.
+-   Remove friends.
+-   Block users.
+-   Search users.
+-   Suggested connections.
+-   Shared-interest discovery.
+
+Provide granular controls for who can view profiles, posts, stories and
+activity.
+
+8. COMMUNITIES
+
+Build a complete community system.
+
+Features: - Create communities. - Public and private communities. -
+Membership requests. - Invitation links. - Admin roles. - Moderator
+roles. - Community rules. - Community announcements. - Text channels. -
+Study channels. - Resource channels. - Event channels. - Voice rooms. -
+Member management. - Community discovery.
+
+Add community-specific permission controls.
+
+Private community content must only be available to authorized members.
+
+9. UNIQUE KONNECTA FEATURES
+
+Implement the following signature experiences.
+
+A. KONNECTA STUDY ROOMS
+
+-   Create study sessions.
+-   Invite friends.
+-   Shared focus timers.
+-   Shared study goals.
+-   Session scheduling.
+-   Shared documents.
+-   Participation tracking.
+-   Study session history.
+
+B. KONNECTA VAULT
+
+Private personal storage.
+
+-   Private files.
+-   Personal notes.
+-   Saved documents.
+-   Bookmarks.
+-   Storage usage.
+-   File organization.
+-   Encrypted file storage.
+
+C. KONNECTA MOMENTS
+
+A section for short personal updates, memories and social sharing.
+
+D. KONNECTA EVENTS
+
+-   Create events.
+-   Invite friends.
+-   RSVP.
+-   Set reminders.
+-   Group calendar.
+-   Event discussion.
+
+E. KONNECTA WHITEBOARD
+
+-   Shared drawing area.
+-   Shapes.
+-   Text.
+-   Sticky notes.
+-   Diagrams.
+-   Multi-user collaboration.
+-   Saving and exporting boards.
+
+F. KONNECTA SMART SEARCH
+
+Search: - Messages. - Users. - Groups. - Communities. - Notes. -
+Documents. - Posts. - Bookmarks.
+
+Enforce permissions for every search result.
+
+For E2EE messages, implement local client-side search rather than
+exposing plaintext to the server.
+
+G. KONNECTA AI STUDY ASSISTANT
+
+-   Summarize authorized documents.
+-   Generate revision notes.
+-   Explain concepts.
+-   Generate practice questions.
+-   Create flashcards.
+-   Organize study materials.
+
+Provide transparent AI processing consent.
+
+Never silently send encrypted messages or private documents to external
+AI providers.
+
+10. SECURITY AND PRIVACY ARCHITECTURE
+
+Treat security as a fundamental engineering requirement.
+
+AUTHENTICATION: - Established authentication provider. - Secure password
+handling. - Session expiration. - Session revocation. - Optional MFA. -
+Login rate limiting.
+
+DATABASE: - PostgreSQL. - Row Level Security. - Server-side
+authorization. - Strict group membership verification. - Secure
+migrations. - Database constraints. - Auditable access policies.
+
+END-TO-END ENCRYPTION:
+
+For private and group messaging: - Use an established, maintained and
+independently reviewed E2EE protocol implementation. - Never invent
+cryptographic algorithms. - Keep private keys under user-device
+control. - Use appropriate device identity and key management. - Support
+secure device addition and removal. - Rotate group keys when membership
+changes. - Prevent unauthorized future message access. - Avoid plaintext
+server-side message logs.
+
+Clearly document which metadata remains visible to the service.
+
+Do not claim WhatsApp-equivalent encryption without independent security
+verification.
+
+IMPORTANT E2EE COMPATIBILITY RULE:
+
+Server-side plaintext search, AI summarization, content moderation and
+message indexing cannot simply operate on ciphertext.
+
+Implement these features using client-side processing, explicit
+user-authorized processing or separate unencrypted content where
+appropriate.
+
+Clearly explain limitations.
+
+FILE STORAGE:
+
+-   Private storage buckets.
+-   Encryption at rest.
+-   HTTPS/TLS.
+-   Per-file authorization.
+-   Short-lived signed URLs.
+-   File type validation.
+-   File size restrictions.
+-   Malware scanning.
+-   Upload quotas.
+-   Safe downloads.
+-   Secure deletion workflows.
+
+For files requiring end-to-end confidentiality, encrypt on the client
+before uploading and manage decryption keys separately.
+
+Do not confuse server-side storage encryption with E2EE.
+
+APPLICATION SECURITY:
+
+-   Input validation.
+-   Output encoding.
+-   XSS protection.
+-   CSRF protection where applicable.
+-   SQL injection prevention.
+-   Rate limiting.
+-   Secure HTTP headers.
+-   API authorization.
+-   Secret management.
+-   Dependency scanning.
+-   Audit logging.
+-   Encrypted backups.
+-   Recovery testing.
+
+Never expose service-role keys or encryption secrets in client-side
+code.
+
+11. SAFETY AND MODERATION CENTRE
+
+Create a complete safety system.
+
+Features: - Block users. - Report users. - Report posts. - Report
+messages where the user chooses to report them. - Report communities. -
+Spam prevention. - Invitation abuse protection. - Community
+moderation. - Admin review queue. - User appeal mechanism. - Moderation
+audit logs.
+
+Add controls to limit: - Unwanted friend requests. - Unwanted
+messages. - Unwanted group invitations. - Public profile visibility. -
+Story viewers. - Profile discovery.
+
+Never allow administrators to access private E2EE conversations through
+an ordinary moderation dashboard.
+
+For reported encrypted messages, allow the reporting user to explicitly
+submit the selected content as evidence.
+
+12. NOTIFICATION SYSTEM
+
+Implement: - In-app notifications. - Push notifications. - Message
+notifications. - Friend requests. - Group invitations. - Mentions. -
+Story interactions. - Event reminders. - Study room invitations. -
+Community announcements.
+
+Provide: - Notification preferences. - Quiet hours. - Mute settings. -
+Sound settings. - Push permission management. - Notification history.
+
+Use a reliable notification queue and retry handling.
+
+Protect message privacy in lock-screen previews.
+
+13. DATABASE ARCHITECTURE
+
+Use normalized PostgreSQL architecture.
+
+Include tables or equivalent well-defined models for:
+
+IDENTITY: - profiles - user_preferences - user_devices - user_sessions -
+user_keys
+
+SOCIAL: - friendships - friend_requests - blocks - follows
+
+MESSAGING: - conversations - conversation_members - messages -
+message_receipts - message_reactions - attachments - message_keys -
+device_key_records
+
+GROUPS: - groups - group_members - group_roles - group_invitations
+
+COMMUNITIES: - communities - community_members - community_roles -
+channels
+
+SOCIAL CONTENT: - posts - comments - post_reactions - stories -
+story_views
+
+STUDY: - study_folders - study_documents - document_permissions -
+document_versions - bookmarks - collaborative_notes
+
+ADDITIONAL: - events - event_participants - polls - poll_options -
+poll_votes - notifications - push_subscriptions - reports -
+moderation_actions - audit_logs - referral_records
+
+Include: - Foreign keys. - Unique constraints. - Appropriate indexes. -
+Timestamps. - Referential integrity. - Soft deletion where
+appropriate. - Row Level Security. - Secure migrations.
+
+Do not create a single oversized table for unrelated features.
+
+Use the authenticated identity as the basis for ownership and
+authorization.
+
+Never duplicate authentication passwords into custom profile tables.
+
+14. TECHNOLOGY STACK
+
+PREFERRED WEB ARCHITECTURE:
+
+Frontend: - Next.js. - React. - TypeScript. - Tailwind CSS. - Accessible
+UI component system. - Framer Motion.
+
+Backend: - Supabase. - PostgreSQL. - Supabase Auth. - Supabase
+Realtime. - Supabase Private Storage. - Server-side API routes.
+
+Communication: - WebRTC. - Secure signaling. - TURN/STUN infrastructure.
+
+AI: - Provider abstraction. - Server-side API integration. - Explicit
+data-processing consent.
+
+Deployment: - Vercel or equivalent. - Supabase. - HTTPS. -
+Environment-based configuration.
+
+Build the first release as a responsive web application with PWA
+capabilities.
+
+Keep the code modular so that dedicated mobile applications can be
+developed later.
+
+Use maintained libraries and verify version compatibility before
+installation.
+
+15. PERFORMANCE AND RELIABILITY
+
+Implement:
+
+-   Message pagination.
+-   Feed pagination.
+-   Lazy loading.
+-   Image optimization.
+-   Upload compression.
+-   Database indexing.
+-   Efficient subscriptions.
+-   Caching for suitable non-sensitive data.
+-   Background jobs.
+-   Network reconnection.
+-   Error recovery.
+-   Monitoring.
+-   Logging.
+-   Database backup.
+-   Disaster recovery.
+
+Avoid unnecessary infrastructure during the initial launch.
+
+Do not sacrifice privacy for performance.
+
+16. PRODUCT GROWTH AND DISCOVERY
+
+Design features that help KONNECTA grow organically.
+
+Implement:
+
+-   Shareable invitation links.
+-   QR-code invitations.
+-   Referral tracking.
+-   Community discovery.
+-   Interest-based recommendations.
+-   Shareable public community pages.
+-   Welcome messages.
+-   Easy group creation.
+-   Optional public profiles.
+-   Shareable study resources with permission controls.
+-   Community engagement analytics.
+
+Add a beautiful landing page that explains KONNECTA’s unique benefits.
+
+Landing page requirements: - Strong product introduction. - Attractive
+hero section. - Application screenshots. - Feature demonstrations. -
+Security and privacy explanation. - Community benefits. - Clear
+registration action. - Mobile responsiveness.
+
+Do not promise guaranteed popularity.
+
+Do not create fake users, fake activity, spam, manipulative
+notifications or deceptive engagement metrics.
+
+Build growth through useful features, product quality and user trust.
+
+17. ADMINISTRATION AND PLATFORM MANAGEMENT
+
+Create a secure administrative dashboard.
+
+Include: - User account management. - Community management. - Report
+review. - Moderation management. - Platform usage analytics. - Storage
+usage. - Error monitoring. - System health. - Abuse prevention. -
+Administrative audit logs.
+
+Apply least-privilege permissions.
+
+Administrators must not automatically receive access to private user
+conversations or private vault files.
+
+Separate platform operational analytics from private user content.
+
+18. DATA OWNERSHIP AND ACCOUNT CONTROLS
+
+Users should have control over their information.
+
+Implement: - Download personal data. - Export personal notes. - Export
+permitted conversation data. - Delete uploaded documents. - Delete
+posts. - Delete account. - Manage devices. - Revoke sessions. - Manage
+connected services. - Manage notification preferences.
+
+Explain retention, deletion, backup and recovery limitations.
+
+Ensure deletion processes cover associated storage objects and dependent
+records.
+
+19. TESTING AND QUALITY ASSURANCE
+
+Write automated tests.
+
+UNIT TESTS: - Authentication validation. - Message processing. -
+Permission checks. - Database operations. - Input validation.
+
+INTEGRATION TESTS: - Registration. - Login. - Private messaging. - Group
+messaging. - File uploads. - Group permissions. - Notifications. -
+Account deletion.
+
+SECURITY TESTS: - Unauthorized database access. - Cross-user data
+access. - Private file access. - Invalid group membership. - API
+abuse. - Session revocation. - Input attacks. - Storage authorization.
+
+END-TO-END TESTS: - User A registers. - User B registers. - User A finds
+and adds User B. - Both exchange messages. - Both create a group. -
+Authorized users exchange documents. - Unauthorized users cannot access
+those documents. - Users test notifications and privacy controls.
+
+Test using multiple accounts and separate browser sessions.
+
+Verify functionality on desktop and mobile.
+
+Fix critical issues before declaring a feature complete.
+
+20. DEVELOPMENT ROADMAP
+
+Do not attempt to build every feature simultaneously.
+
+Follow this implementation sequence.
+
+PHASE 0 — INSPECTION AND PLANNING - Inspect the existing repository. -
+Identify the framework. - Review existing dependencies. - Identify
+existing functionality. - Create a technical architecture. - Create a
+database plan. - Create a design system. - Identify security
+dependencies.
+
+PHASE 1 — FOUNDATION - Project structure. - Design system. - Landing
+page. - Authentication. - Onboarding. - Profiles. - Theme switching. -
+Database schema.
+
+PHASE 2 — CORE COMMUNICATION - Private messaging. - Group messaging. -
+Real-time updates. - Delivery states. - File attachments. - Group
+administration.
+
+PHASE 3 — PRIVACY AND STORAGE - Private storage. - Personal Vault. -
+Encryption integration. - Device management. - Access controls. -
+Security testing.
+
+PHASE 4 — STUDY ECOSYSTEM - Study Zone. - Document management. - Shared
+notes. - Bookmarks. - Study Rooms.
+
+PHASE 5 — SOCIAL ECOSYSTEM - Friends. - Stories. - Social feed. -
+Communities. - Discovery.
+
+PHASE 6 — ADVANCED FEATURES - Voice/video calls. - Events. - Polls. -
+Whiteboard. - AI Study Assistant. - Advanced notifications.
+
+PHASE 7 — PRODUCTION READINESS - Performance. - Accessibility. -
+Security review. - Automated testing. - Monitoring. - Backups. -
+Deployment. - Domain configuration.
+
+Prioritize a reliable core release before enabling advanced features.
+
+21. IMPLEMENTATION RULES FOR THE CODING AGENT
+
+These rules are mandatory.
+
+1.  Inspect the repository before making changes.
+2.  Preserve working functionality.
+3.  Never overwrite existing files without understanding their purpose.
+4.  Do not create unnecessary duplicate components.
+5.  Use reusable components.
+6.  Maintain consistent naming conventions.
+7.  Use TypeScript types properly.
+8.  Separate frontend and backend responsibilities.
+9.  Keep secrets in environment variables.
+10. Create proper database migrations.
+11. Never disable security policies to make a feature work.
+12. Never use fake production data.
+13. Never silently skip failed operations.
+14. Do not claim a feature is complete without testing it.
+15. Document external dependencies.
+16. Provide setup instructions.
+17. Provide an environment variable example file without real secrets.
+18. Provide deployment instructions.
+19. Keep a record of completed and pending functionality.
+20. Fix errors before proceeding to the next phase.
+
+When something cannot be safely implemented with the chosen
+architecture, explain the limitation and provide a technically sound
+alternative.
+
+Do not silently downgrade security or functionality.
+
+22. FINAL ACCEPTANCE CRITERIA
+
+KONNECTA is ready for its initial public release only when:
+
+-   Registration and login work.
+-   User profiles work.
+-   Real-time private messaging works.
+-   Group conversations work.
+-   File sharing works with server-enforced permissions.
+-   Personal storage is private.
+-   Messaging permissions are verified.
+-   E2EE claims are backed by a verified implementation.
+-   Social functionality works.
+-   Communities work.
+-   Reporting and blocking work.
+-   Notifications work.
+-   Mobile and desktop interfaces work.
+-   Accessibility has been tested.
+-   Database migrations are reproducible.
+-   Critical security tests pass.
+-   Backup and recovery are tested.
+-   No critical production errors remain.
+-   Deployment documentation is complete.
+
+Create a release checklist and clearly distinguish: - Fully
+implemented. - Partially implemented. - Not implemented. - Requires
+external service. - Requires independent security audit.
+
+Never label the entire application production-ready merely because the
+frontend works.
+
+FINAL PRODUCT VISION
+
+KONNECTA should become a recognizable, premium social communication
+platform where users can:
+
+CHAT WITH FRIENDS. SHARE KNOWLEDGE. BUILD COMMUNITIES. CREATE MEMORIES.
+COLLABORATE ON PROJECTS. STUDY TOGETHER. KEEP THEIR INFORMATION PRIVATE.
+
+Build a product that combines excellent design, useful functionality,
+strong privacy, reliability and genuine community value.
+
+Start with repository inspection and the foundation.
+
+Then build, test, improve and complete each phase.
+
+Do not stop after producing a beautiful UI.
+
+BUILD THE REAL KONNECTA APPLICATION.

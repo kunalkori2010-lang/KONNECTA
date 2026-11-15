@@ -1,0 +1,479 @@
+{
+  "entities": {
+    "UserPublic": {
+      "title": "UserPublic",
+      "description": "Publicly discoverable non-PII user profile",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "username": { "type": "string", "minLength": 3, "maxLength": 32, "pattern": "^[a-z0-9_]+$" },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "bio": { "type": "string", "maxLength": 400 },
+        "avatarUrl": { "type": "string", "maxLength": 200000 },
+        "coverColor": { "type": "string", "maxLength": 40 },
+        "college": { "type": "string", "maxLength": 120 },
+        "interests": { "type": "array", "description": "Up to 10 interest tags" },
+        "profileVisibility": { "type": "string", "enum": ["public", "friends", "private"] },
+        "storyVisibility": { "type": "string", "enum": ["friends", "close_friends"] },
+        "friendRequestsFrom": { "type": "string", "enum": ["everyone", "nobody"] },
+        "onboardingCompleted": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "username", "displayName", "profileVisibility", "onboardingCompleted", "createdAt", "updatedAt"]
+    },
+    "UserPrivate": {
+      "title": "UserPrivate",
+      "description": "Owner-only PII, preferences, and privacy controls",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 254 },
+        "theme": { "type": "string", "enum": ["dark", "light", "system"] },
+        "accentColor": { "type": "string", "maxLength": 32 },
+        "fontSize": { "type": "string", "enum": ["sm", "md", "lg"] },
+        "reducedMotion": { "type": "boolean" },
+        "chatWallpaper": { "type": "string", "maxLength": 64 },
+        "aiConsentGranted": { "type": "boolean" },
+        "quietHoursEnabled": { "type": "boolean" },
+        "quietHoursStart": { "type": "string", "maxLength": 8 },
+        "quietHoursEnd": { "type": "string", "maxLength": 8 },
+        "soundEnabled": { "type": "boolean" },
+        "lockScreenPreview": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "theme", "createdAt", "updatedAt"]
+    },
+    "UsernameReservation": {
+      "title": "UsernameReservation",
+      "description": "Atomic unique username registry",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "username": { "type": "string", "minLength": 3, "maxLength": 32 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "username", "createdAt"]
+    },
+    "UserKeyBundle": {
+      "title": "UserKeyBundle",
+      "description": "E2EE public identity keys (ECDH + ECDSA)",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "ecdhPublicJwk": { "type": "string", "maxLength": 4096 },
+        "ecdsaPublicJwk": { "type": "string", "maxLength": 4096 },
+        "fingerprint": { "type": "string", "maxLength": 128 },
+        "keyVersion": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "ecdhPublicJwk", "fingerprint", "keyVersion", "updatedAt"]
+    },
+    "UserDevice": {
+      "title": "UserDevice",
+      "description": "Registered user device for E2EE and session control",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "deviceName": { "type": "string", "maxLength": 100 },
+        "fingerprint": { "type": "string", "maxLength": 128 },
+        "revoked": { "type": "boolean" },
+        "lastActiveAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "deviceName", "fingerprint", "revoked", "lastActiveAt", "createdAt"]
+    },
+    "FriendRequest": {
+      "title": "FriendRequest",
+      "description": "Friend request between two users",
+      "type": "object",
+      "properties": {
+        "fromUid": { "type": "string", "maxLength": 128 },
+        "fromName": { "type": "string", "maxLength": 80 },
+        "fromUsername": { "type": "string", "maxLength": 32 },
+        "toUid": { "type": "string", "maxLength": 128 },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["fromUid", "toUid", "status", "createdAt", "updatedAt"]
+    },
+    "Friendship": {
+      "title": "Friendship",
+      "description": "Established bidirectional friendship",
+      "type": "object",
+      "properties": {
+        "uids": { "type": "array" },
+        "uid1": { "type": "string", "maxLength": 128 },
+        "uid2": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uids", "uid1", "uid2", "createdAt"]
+    },
+    "BlockRecord": {
+      "title": "BlockRecord",
+      "description": "User block entry",
+      "type": "object",
+      "properties": {
+        "blockerUid": { "type": "string", "maxLength": 128 },
+        "blockedUid": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["blockerUid", "blockedUid", "createdAt"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "1:1 or group conversation metadata",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["direct", "group"] },
+        "title": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 300 },
+        "creatorUid": { "type": "string", "maxLength": 128 },
+        "memberUids": { "type": "array" },
+        "adminUids": { "type": "array" },
+        "disappearingSeconds": { "type": "number" },
+        "keyVersion": { "type": "number" },
+        "announcement": { "type": "string", "maxLength": 500 },
+        "lastMessageAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "creatorUid", "memberUids", "adminUids", "keyVersion", "createdAt", "updatedAt"]
+    },
+    "ConversationMessage": {
+      "title": "ConversationMessage",
+      "description": "Encrypted or structured message inside a conversation",
+      "type": "object",
+      "properties": {
+        "convId": { "type": "string", "maxLength": 128 },
+        "senderUid": { "type": "string", "maxLength": 128 },
+        "senderName": { "type": "string", "maxLength": 80 },
+        "type": { "type": "string", "enum": ["text", "image", "file", "voice", "poll", "system"] },
+        "e2ee": { "type": "boolean" },
+        "ciphertext": { "type": "string", "maxLength": 450000 },
+        "iv": { "type": "string", "maxLength": 128 },
+        "keyVersion": { "type": "number" },
+        "replyToId": { "type": "string", "maxLength": 128 },
+        "pinned": { "type": "boolean" },
+        "edited": { "type": "boolean" },
+        "deleted": { "type": "boolean" },
+        "clientMsgId": { "type": "string", "maxLength": 128 },
+        "expiresAtMs": { "type": "number" },
+        "reactions": { "type": "object" },
+        "pollQuestion": { "type": "string", "maxLength": 240 },
+        "pollOptions": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["convId", "senderUid", "type", "e2ee", "ciphertext", "createdAt", "updatedAt"]
+    },
+    "ConversationMemberKey": {
+      "title": "ConversationMemberKey",
+      "description": "Wrapped group symmetric key for a conversation member",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "wrappedKey": { "type": "string", "maxLength": 4096 },
+        "iv": { "type": "string", "maxLength": 128 },
+        "senderUid": { "type": "string", "maxLength": 128 },
+        "keyVersion": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "wrappedKey", "iv", "senderUid", "keyVersion", "updatedAt"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Social feed or Moment post",
+      "type": "object",
+      "properties": {
+        "authorUid": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 80 },
+        "authorUsername": { "type": "string", "maxLength": 32 },
+        "content": { "type": "string", "maxLength": 3000 },
+        "mediaDataUrl": { "type": "string", "maxLength": 400000 },
+        "kind": { "type": "string", "enum": ["post", "moment"] },
+        "visibility": { "type": "string", "enum": ["public", "friends"] },
+        "tags": { "type": "array" },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "edited": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorUid", "authorName", "content", "kind", "visibility", "likesCount", "commentsCount", "createdAt", "updatedAt"]
+    },
+    "Story": {
+      "title": "Story",
+      "description": "24-hour expiring story",
+      "type": "object",
+      "properties": {
+        "authorUid": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 80 },
+        "type": { "type": "string", "enum": ["text", "image"] },
+        "text": { "type": "string", "maxLength": 500 },
+        "bgStyle": { "type": "string", "maxLength": 64 },
+        "mediaDataUrl": { "type": "string", "maxLength": 400000 },
+        "visibility": { "type": "string", "enum": ["friends", "close_friends"] },
+        "expiresAtMs": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["authorUid", "authorName", "type", "visibility", "expiresAtMs", "createdAt"]
+    },
+    "Community": {
+      "title": "Community",
+      "description": "Interest or study community",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 80 },
+        "description": { "type": "string", "maxLength": 500 },
+        "rules": { "type": "string", "maxLength": 1500 },
+        "category": { "type": "string", "maxLength": 40 },
+        "visibility": { "type": "string", "enum": ["public", "private"] },
+        "creatorUid": { "type": "string", "maxLength": 128 },
+        "memberUids": { "type": "array" },
+        "adminUids": { "type": "array" },
+        "inviteCode": { "type": "string", "maxLength": 32 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "description", "category", "visibility", "creatorUid", "memberUids", "adminUids", "inviteCode", "createdAt", "updatedAt"]
+    },
+    "CommunityChannel": {
+      "title": "CommunityChannel",
+      "description": "Channel inside a community",
+      "type": "object",
+      "properties": {
+        "communityId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 64 },
+        "type": { "type": "string", "enum": ["text", "study", "resource", "event", "announcement"] },
+        "description": { "type": "string", "maxLength": 240 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["communityId", "name", "type", "createdBy", "createdAt"]
+    },
+    "StudyFolder": {
+      "title": "StudyFolder",
+      "description": "Subject/semester study folder",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 80 },
+        "subject": { "type": "string", "maxLength": 80 },
+        "semester": { "type": "string", "maxLength": 40 },
+        "visibility": { "type": "string", "enum": ["private", "friends", "public"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "name", "subject", "visibility", "createdAt"]
+    },
+    "StudyDocument": {
+      "title": "StudyDocument",
+      "description": "Study guide, paper, or uploaded file",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "ownerName": { "type": "string", "maxLength": 80 },
+        "folderId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 500 },
+        "fileName": { "type": "string", "maxLength": 180 },
+        "mimeType": { "type": "string", "maxLength": 100 },
+        "sizeBytes": { "type": "number" },
+        "contentText": { "type": "string", "maxLength": 200000 },
+        "fileDataUrl": { "type": "string", "maxLength": 500000 },
+        "tags": { "type": "array" },
+        "visibility": { "type": "string", "enum": ["private", "friends", "public"] },
+        "version": { "type": "number" },
+        "downloadAllowed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "ownerName", "title", "fileName", "mimeType", "sizeBytes", "visibility", "version", "downloadAllowed", "createdAt", "updatedAt"]
+    },
+    "CollaborativeNote": {
+      "title": "CollaborativeNote",
+      "description": "Shared study note",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "ownerName": { "type": "string", "maxLength": 80 },
+        "title": { "type": "string", "maxLength": 120 },
+        "content": { "type": "string", "maxLength": 100000 },
+        "subject": { "type": "string", "maxLength": 80 },
+        "collaboratorUids": { "type": "array" },
+        "visibility": { "type": "string", "enum": ["private", "shared", "public"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "ownerName", "title", "content", "visibility", "createdAt", "updatedAt"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "User-owned bookmark",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "targetType": { "type": "string", "enum": ["document", "post", "note", "message"] },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 140 },
+        "snippet": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "targetType", "targetId", "title", "createdAt"]
+    },
+    "StudyRoom": {
+      "title": "StudyRoom",
+      "description": "Live study room with shared focus timer and goals",
+      "type": "object",
+      "properties": {
+        "hostUid": { "type": "string", "maxLength": 128 },
+        "hostName": { "type": "string", "maxLength": 80 },
+        "title": { "type": "string", "maxLength": 100 },
+        "subject": { "type": "string", "maxLength": 80 },
+        "goals": { "type": "array" },
+        "timerMinutes": { "type": "number" },
+        "timerStatus": { "type": "string", "enum": ["idle", "running", "paused"] },
+        "timerEndAtMs": { "type": "number" },
+        "visibility": { "type": "string", "enum": ["public", "friends"] },
+        "participantUids": { "type": "array" },
+        "scheduledFor": { "type": "string", "maxLength": 64 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["hostUid", "hostName", "title", "subject", "timerMinutes", "timerStatus", "visibility", "participantUids", "createdAt", "updatedAt"]
+    },
+    "VaultItem": {
+      "title": "VaultItem",
+      "description": "Client-encrypted personal vault item",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 120 },
+        "category": { "type": "string", "enum": ["note", "file", "document"] },
+        "encryptedPayload": { "type": "string", "maxLength": 600000 },
+        "iv": { "type": "string", "maxLength": 128 },
+        "salt": { "type": "string", "maxLength": 128 },
+        "mimeType": { "type": "string", "maxLength": 100 },
+        "sizeBytes": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "title", "category", "encryptedPayload", "iv", "salt", "sizeBytes", "createdAt", "updatedAt"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "Community or friend event",
+      "type": "object",
+      "properties": {
+        "creatorUid": { "type": "string", "maxLength": 128 },
+        "creatorName": { "type": "string", "maxLength": 80 },
+        "title": { "type": "string", "maxLength": 120 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "location": { "type": "string", "maxLength": 160 },
+        "startsAt": { "type": "string", "maxLength": 64 },
+        "visibility": { "type": "string", "enum": ["public", "friends"] },
+        "goingUids": { "type": "array" },
+        "maybeUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["creatorUid", "creatorName", "title", "startsAt", "visibility", "goingUids", "maybeUids", "createdAt", "updatedAt"]
+    },
+    "Whiteboard": {
+      "title": "Whiteboard",
+      "description": "Collaborative whiteboard state",
+      "type": "object",
+      "properties": {
+        "ownerUid": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "collaboratorUids": { "type": "array" },
+        "visibility": { "type": "string", "enum": ["private", "shared", "public"] },
+        "elements": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["ownerUid", "title", "collaboratorUids", "visibility", "elements", "createdAt", "updatedAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "In-app notification record",
+      "type": "object",
+      "properties": {
+        "recipientUid": { "type": "string", "maxLength": 128 },
+        "actorUid": { "type": "string", "maxLength": 128 },
+        "actorName": { "type": "string", "maxLength": 80 },
+        "type": { "type": "string", "maxLength": 40 },
+        "title": { "type": "string", "maxLength": 120 },
+        "body": { "type": "string", "maxLength": 240 },
+        "linkTab": { "type": "string", "maxLength": 40 },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["recipientUid", "actorUid", "type", "title", "read", "createdAt"]
+    },
+    "CallLog": {
+      "title": "CallLog",
+      "description": "Voice or video call log",
+      "type": "object",
+      "properties": {
+        "callerUid": { "type": "string", "maxLength": 128 },
+        "callerName": { "type": "string", "maxLength": 80 },
+        "calleeUid": { "type": "string", "maxLength": 128 },
+        "calleeName": { "type": "string", "maxLength": 80 },
+        "participantUids": { "type": "array" },
+        "mode": { "type": "string", "enum": ["audio", "video"] },
+        "status": { "type": "string", "enum": ["ringing", "active", "ended", "missed", "declined"] },
+        "durationSeconds": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["callerUid", "calleeUid", "participantUids", "mode", "status", "createdAt"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Safety and moderation report",
+      "type": "object",
+      "properties": {
+        "reporterUid": { "type": "string", "maxLength": 128 },
+        "targetType": { "type": "string", "enum": ["user", "post", "message", "community"] },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "reason": { "type": "string", "maxLength": 400 },
+        "submittedEvidence": { "type": "string", "maxLength": 2000 },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "resolved", "dismissed"] },
+        "moderatorNote": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["reporterUid", "targetType", "targetId", "reason", "status", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users_public/{uid}": { "schema": { "$ref": "#/entities/UserPublic" }, "description": "Public profile info" },
+    "/users_private/{uid}": { "schema": { "$ref": "#/entities/UserPrivate" }, "description": "Owner-only PII and preferences" },
+    "/usernames/{username}": { "schema": { "$ref": "#/entities/UsernameReservation" }, "description": "Unique username locks" },
+    "/user_keys/{uid}": { "schema": { "$ref": "#/entities/UserKeyBundle" }, "description": "E2EE public identity keys" },
+    "/user_devices/{deviceId}": { "schema": { "$ref": "#/entities/UserDevice" }, "description": "Registered user devices" },
+    "/friend_requests/{requestId}": { "schema": { "$ref": "#/entities/FriendRequest" }, "description": "Pending and resolved friend requests" },
+    "/friendships/{friendshipId}": { "schema": { "$ref": "#/entities/Friendship" }, "description": "Friend relationships" },
+    "/blocks/{blockId}": { "schema": { "$ref": "#/entities/BlockRecord" }, "description": "User block records" },
+    "/conversations/{convId}": { "schema": { "$ref": "#/entities/Conversation" }, "description": "1:1 and group conversations" },
+    "/conversations/{convId}/messages/{msgId}": { "schema": { "$ref": "#/entities/ConversationMessage" }, "description": "Conversation messages" },
+    "/conversations/{convId}/memberKeys/{uid}": { "schema": { "$ref": "#/entities/ConversationMemberKey" }, "description": "Wrapped group symmetric keys" },
+    "/posts/{postId}": { "schema": { "$ref": "#/entities/Post" }, "description": "Social feed and Moments" },
+    "/stories/{storyId}": { "schema": { "$ref": "#/entities/Story" }, "description": "24-hour expiring stories" },
+    "/communities/{communityId}": { "schema": { "$ref": "#/entities/Community" }, "description": "Communities" },
+    "/communities/{communityId}/channels/{channelId}": { "schema": { "$ref": "#/entities/CommunityChannel" }, "description": "Community channels" },
+    "/study_folders/{folderId}": { "schema": { "$ref": "#/entities/StudyFolder" }, "description": "Study Zone folders" },
+    "/study_documents/{docId}": { "schema": { "$ref": "#/entities/StudyDocument" }, "description": "Study Zone documents" },
+    "/collaborative_notes/{noteId}": { "schema": { "$ref": "#/entities/CollaborativeNote" }, "description": "Collaborative notes" },
+    "/bookmarks/{bookmarkId}": { "schema": { "$ref": "#/entities/Bookmark" }, "description": "Saved bookmarks" },
+    "/study_rooms/{roomId}": { "schema": { "$ref": "#/entities/StudyRoom" }, "description": "Live study rooms" },
+    "/vault_items/{itemId}": { "schema": { "$ref": "#/entities/VaultItem" }, "description": "Encrypted personal vault items" },
+    "/events/{eventId}": { "schema": { "$ref": "#/entities/Event" }, "description": "Events and RSVPs" },
+    "/whiteboards/{boardId}": { "schema": { "$ref": "#/entities/Whiteboard" }, "description": "Collaborative whiteboards" },
+    "/notifications/{notifId}": { "schema": { "$ref": "#/entities/Notification" }, "description": "User notifications" },
+    "/call_logs/{callId}": { "schema": { "$ref": "#/entities/CallLog" }, "description": "Call history logs" },
+    "/reports/{reportId}": { "schema": { "$ref": "#/entities/Report" }, "description": "Safety and moderation reports" }
+  }
+}
