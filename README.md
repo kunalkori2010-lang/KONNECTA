@@ -2,6 +2,11 @@
 
 KONNECTA is a privacy-focused social messaging, community, and study collaboration web application built with React, TypeScript, Tailwind CSS, Express, WebSockets, WebRTC, Firebase Auth, Cloud Firestore, and server-side Google Gemini AI study tools.
 
+## Install App
+
+- **Direct Install Link**: [Install KONNECTA](https://ais-pre-uxhhe2pgtrqj3guwpioqx6-922138648142.asia-east1.run.app/?install=1)
+- **Repository**: https://github.com/kunalkori2010-lang/KONNECTA
+
 ## Key Capabilities & Architecture
 
 - **Identity & Privacy Separation**: Google Sign-In via Firebase Auth (`email_verified` enforced in `firestore.rules`). Public profile fields (`users_public`) contain zero PII, while email addresses, theme settings, notification preferences, and AI consent flags reside in owner-only `users_private`.

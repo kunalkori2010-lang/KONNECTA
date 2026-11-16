@@ -2,7 +2,7 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { LandingPage } from './components/LandingPage';
 import { OnboardingWizard } from './components/OnboardingWizard';
@@ -10,9 +10,30 @@ import { AppShell } from './components/AppShell';
 import { CallOverlay } from './components/calls/CallOverlay';
 import { ToastContainer } from './components/ToastContainer';
 import { OfflineBanner } from './components/OfflineBanner';
+import { InstallAppPanel } from './components/InstallAppModal';
+
+function isInstallRoute(): boolean {
+  if (typeof window === 'undefined') return false;
+  const path = window.location.pathname.replace(/\/+$/, '');
+  const params = new URLSearchParams(window.location.search);
+  return path === '/install' || params.get('install') === '1';
+}
 
 const KonnectaRouter: React.FC = () => {
   const { authReady, firebaseUser, publicProfile, profileLoaded } = useApp();
+  const [showInstallPage, setShowInstallPage] = useState<boolean>(isInstallRoute);
+
+  if (showInstallPage) {
+    return (
+      <InstallAppPanel
+        mode="page"
+        onContinueToApp={() => {
+          window.history.replaceState({}, '', '/');
+          setShowInstallPage(false);
+        }}
+      />
+    );
+  }
 
   if (!authReady || (firebaseUser && !profileLoaded)) {
     return (

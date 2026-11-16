@@ -24,6 +24,7 @@ import {
 import { db, handleFirestoreError, OperationType } from '../../lib/firebase';
 import { useApp } from '../../context/AppContext';
 import { ACCENT_PRESETS, CHAT_WALLPAPERS } from '../../config/brand';
+import { PWAInstallButton } from '../PWAInstallButton';
 
 interface DeviceRow {
   id: string;
@@ -392,6 +393,12 @@ export const SettingsModule: React.FC = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Install App */}
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#111827] p-6 flex items-center justify-between gap-3">
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Install App</h3>
+        <PWAInstallButton />
       </div>
 
       {/* Data Ownership & Account Deletion */}

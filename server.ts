@@ -1,11 +1,11 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { type Request, type Response, type NextFunction } from 'express';
 import http from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { WebSocketServer, WebSocket } from 'ws';
 import { initializeApp, getApps } from 'firebase-admin/app';
-import { getAuth, DecodedIdToken } from 'firebase-admin/auth';
+import { getAuth, type DecodedIdToken } from 'firebase-admin/auth';
 import { GoogleGenAI, Type } from '@google/genai';
 import firebaseConfig from './firebase-applet-config.json' with { type: 'json' };
 
@@ -22,14 +22,16 @@ if (!getApps().length) {
 
 const adminAuth = getAuth();
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
+function getAiClient() {
+  return new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY,
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build',
+      },
     },
-  },
-});
+  });
+}
 
 export interface AuthRequest extends Request {
   user?: DecodedIdToken;
@@ -111,6 +113,7 @@ export function createApp() {
     const safeTitle = typeof title === 'string' ? title.slice(0, 120) : 'Untitled Material';
 
     try {
+      const ai = getAiClient();
       if (action === 'flashcards') {
         const response = await ai.models.generateContent({
           model: 'gemini-4-hydrogen',
@@ -374,7 +377,8 @@ async function startServer() {
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
-        hmr: disableHmr ? false : { server },
+        hmr: disableHmr ? false : true,
+        ws: { server },
         watch: disableHmr ? null : {},
       },
       appType: 'spa',
@@ -382,13 +386,25 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distDir = path.join(__dirname, 'dist');
-    app.use(express.static(distDir));
+    app.use(
+      express.static(distDir, {
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith('sw.js')) {
+            res.setHeader('Cache-Control', 'no-cache');
+            res.setHeader('Service-Worker-Allowed', '/');
+          } else if (filePath.endsWith('manifest.webmanifest')) {
+            res.setHeader('Content-Type', 'application/manifest+json');
+            res.setHeader('Cache-Control', 'no-cache');
+          }
+        },
+      })
+    );
     app.get('*', (_req, res) => {
       res.sendFile(path.join(distDir, 'index.html'));
     });
   }
 
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
   server.listen(PORT, '0.0.0.0', () => {
     console.log(`KONNECTA server running on http://0.0.0.0:${PORT}`);
   });
