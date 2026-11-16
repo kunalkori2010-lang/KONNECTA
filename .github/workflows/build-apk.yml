@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
 
 permissions:
@@ -39,7 +39,7 @@ jobs:
         env:
           APP_SERVER_URL: ${{ vars.APP_URL || 'https://ais-pre-uxhhe2pgtrqj3guwpioqx6-922138648142.asia-east1.run.app' }}
         run: |
-          npm install --no-save @capacitor/core@7 @capacitor/cli@7 @capacitor/android@7
+          npm install @capacitor/core@7 @capacitor/cli@7 @capacitor/android@7
           node -e "
             const fs = require('fs');
             fs.writeFileSync('capacitor.config.json', JSON.stringify({
@@ -74,8 +74,7 @@ jobs:
       - name: Publish KONNECTA.apk to GitHub Releases
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: latest
-          name: KONNECTA Android App
+          tag_name: v1.0.${{ github.run_number }}
+          name: KONNECTA Android App v1.0.${{ github.run_number }}
           body: Direct Android APK download for KONNECTA.
           files: KONNECTA.apk
-          overwrite_files: true
