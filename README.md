@@ -4,7 +4,8 @@ KONNECTA is a privacy-focused social messaging, community, and study collaborati
 
 ## Install App
 
-- **Direct Install Link**: [Install KONNECTA](https://ais-pre-uxhhe2pgtrqj3guwpioqx6-922138648142.asia-east1.run.app/?install=1)
+- **Android APK (GitHub Release)**: [Download KONNECTA.apk](https://github.com/kunalkori2010-lang/KONNECTA/releases/latest/download/KONNECTA.apk)
+- **Web / PWA Install Link**: [Install KONNECTA](https://ais-pre-uxhhe2pgtrqj3guwpioqx6-922138648142.asia-east1.run.app/?install=1)
 - **Repository**: https://github.com/kunalkori2010-lang/KONNECTA
 
 ## Key Capabilities & Architecture
